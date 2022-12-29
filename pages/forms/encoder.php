@@ -92,7 +92,7 @@ header('location:../');
                   </div>
                 </div>
 				
-				<div class="col-md-4">
+				<div class="col-md-2">
                   <div class="form-group">
                   <label>Position</label>
                   <select name="position" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
@@ -109,8 +109,15 @@ header('location:../');
                   </select>
                 </div>
                 </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                  <label>Profile Picture</label>
+                    <input name="filename" required type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="" placeholder="">
+                </div>
+                </div>
 				
-				<div class="col-md-4">
+				<div class="col-md-3">
                   <div class="form-group">
                   <label>School Issued Email Address</label>
                     <input required name="u_email" type="text" class="form-control" id="" placeholder="Enter Email Address">
@@ -135,7 +142,7 @@ header('location:../');
                 <div class="col-md-6">
                   <div class="form-group">
                   <label>Default Password</label>
-                    <input readonly value='Encoder' required name="pass" type="text" class="form-control" id="" placeholder="Enter Email Address">
+                    <input readonly value='Admin' required name="pass" type="text" class="form-control" id="" placeholder="Enter Email Address">
                 </div>
                 </div>
                 </div>

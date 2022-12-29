@@ -42,9 +42,16 @@ class Login extends DBConnection {
 		$auth_id=mt_rand();
 		$encrypt_auth=md5($auth_id);
 		$role=1;
-			$insert_encode=("INSERT INTO user (u_name,u_mid,u_last,auth_id,uname,pass,role) VALUES(?,?,?,?,?,?,?)");
+		$file_name=strtolower($_FILES['filename']['name']);
+		$file_ext= substr($file_name, strrpos($file_name, '.'));
+		$prefix='pp_'.md5(time() * rand(1,9999));
+		$newName=$prefix.$file_ext;
+		$path='../pages/content/profilepicture/'.$newName;
+		
+		if(move_uploaded_file($_FILES['filename']['tmp_name'], $path)){
+			$insert_encode=("INSERT INTO user (u_name,u_mid,u_last,position,profilepic,auth_id,uname,pass,role) VALUES(?,?,?,?,?,?,?,?,?)");
 			$prep_insert_encode=$this->conn->prepare($insert_encode);
-			$prep_insert_encode->bind_param("ssssssi", $fname, $mname,$lname,$encrypt_auth,$uname,$pass,$role);
+			$prep_insert_encode->bind_param("ssssssssi", $fname, $mname,$lname,$position,$path,$encrypt_auth,$uname,$pass,$role);
 			$prep_insert_encode->execute();
 			if($prep_insert_encode){
 				$action="User $id , Register $fname $lname to the system.";
@@ -57,11 +64,12 @@ class Login extends DBConnection {
 						<script type='text/javascript'>
 						alert('Data has been Saved!');
 						window.location.href = '../pages/forms/encoder.php';
-						</script>
-					";
+						</script>";
 			}
 		}
-		}
+	}else{
+		echo "error";}
+	}
 	
 	
 			
@@ -70,10 +78,16 @@ class Login extends DBConnection {
 		$auth_id=mt_rand();
 		$encrypt_auth=md5($auth_id);
 		$role=2;
+		$file_name=strtolower($_FILES['filename']['name']);
+		$file_ext= substr($file_name, strrpos($file_name, '.'));
+		$prefix='pp_'.md5(time() * rand(1,9999));
+		$newName=$prefix.$file_ext;
+		$path='../pages/content/profilepicture/'.$newName;
 		
-			$insert=("INSERT INTO user (u_name,u_mid,u_last,auth_id,uname,pass,email,role,id_num,grade,section,position,age,gender,cpnum) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		if(move_uploaded_file($_FILES['filename']['tmp_name'], $path)){
+			$insert=("INSERT INTO user (u_name,u_mid,u_last,auth_id,uname,pass,image,email,role,id_num,grade,section,position,age,gender,cpnum) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			$prep_insert=$this->conn->prepare($insert);
-			$prep_insert->bind_param("ssssssissssisii", $fname, $mname,$lname,$encrypt_auth,$uname,$pass,$u_email,$role,$u_id,$glevel,$section,$position,$age,$gender,$u_cpnum);
+			$prep_insert->bind_param("sssssssissssisii", $fname, $mname,$lname,$encrypt_auth,$uname,$pass,$path,$u_email,$role,$u_id,$glevel,$section,$position,$age,$gender,$u_cpnum);
 			$prep_insert->execute();
 			if($prep_insert){
 				$action="User $id , Register $fname $lname to the system.";
@@ -89,8 +103,10 @@ class Login extends DBConnection {
 						</script>
 					";
 			}
-			}
-		}
+		}else{
+			echo "error";}
+	}
+}
 		
 		
 		public function reg_feedback(){

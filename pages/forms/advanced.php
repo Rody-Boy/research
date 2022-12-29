@@ -164,7 +164,7 @@ header('location:../');
 				
 				<div class="col-md-3	">
                 <div class="form-group">
-                    <label for="filename">Profile Picture</label>
+                    <label>Profile Picture</label>
                     <input name="filename" required type="file" accept="image/png, image/gif, image/jpeg" class="form-control" id="" placeholder="">
                 </div>
                 </div>
